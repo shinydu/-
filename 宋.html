@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>宋宋的专属小游戏</title>
+    <style>
+        html,body{
+            height: 100%;
+            margin: 0;
+        }
+        body{
+            background-image: url(image/bg.jpg);
+            cursor: url(image/cursor.png),auto;
+        }
+        table{
+            width: 600px;
+            height: 600px;
+            /* border: 1px solid red; */
+            margin:50px auto;
+            border-collapse: collapse;
+        }
+        td{
+            height: 150px;
+            width: 150px;
+            /* border:1px solid blue; */
+            background-image: url(image/hole.png);
+            background-repeat: no-repeat;
+            background-size: 120px 50px;
+            background-position: center bottom;
+            text-align: center;
+            /*设置垂直方向的出现位置：图片从底部出现 */
+            vertical-align: bottom;
+        }
+        img{
+            width: 100px;
+            height: 0px;
+            position:relative;
+            top:-8px;
+        }
+        .mouseUp{
+            animation:up 0.3s;
+            /* 保持动画结束时的状态 */
+            animation-fill-mode: forwards;
+        }
+        .mouseDown{
+            animation: down 0.1s;
+            animation-fill-mode: forwards;
+        }
+        @keyframes up{
+            0%{
+                height: 0px;
+            }
+            100%{
+                height: 100px;
+            }
+        }
+        @keyframes down{
+            0%{
+                height: 100px;
+            }
+            100%{
+                height: 0px;
+            }
+        }
+        #defen{
+            position: relative;
+            top:50px;
+            font-size: 30px;
+            background-color: rgb(148, 146, 146,0.5);
+            width: 150px;
+            padding: 0px 10px 0px 30px;
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <!-- loop：循环 -->
+    <audio src="audio/music.mp3" autoplay loop></audio>
+    <audio id="dazhong"></audio>
+    <div id="defen">得分：0</div>
+    <table>
+        <tr>
+            <td><img src="image/1.png" alt=""></td>
+            <td><img src="image/2.png" alt=""></td>
+            <td><img src="image/3.png" alt=""></td>
+            <td><img src="image/4.png" alt=""></td>
+        </tr>
+        <tr>
+            <td><img src="image/5.png" alt=""></td>
+            <td><img src="image/6.png" alt=""></td>
+            <td><img src="image/7.png" alt=""></td>
+            <td><img src="image/8.png" alt=""></td>
+        </tr>
+        <tr>
+            <td><img src="image/9.png" alt=""></td>
+            <td><img src="image/10.png" alt=""></td>
+            <td><img src="image/11.png" alt=""></td>
+            <td><img src="image/12.png" alt=""></td>
+        </tr>
+        <tr>
+            <td><img src="image/13.png" alt=""></td>
+            <td><img src="image/14.png" alt=""></td>
+            <td><img src="image/15.png" alt=""></td>
+            <td><img src="image/16.png" alt=""></td>
+        </tr>
+    </table>
+
+    <script src="jquery.js"></script>
+    <script>
+        alert('哈哈，准备好了嘛？')
+        alert('3')
+        alert('2')
+        alert('1')
+        alert('开始！')
+        // $代表一个jquery对象
+        var mouses =$('img')
+        var fenshu=0;
+        function showMouse(){
+            var random = Math.random()*16
+            // Math.floor:获取一个不大于该数值的最大整数
+            random = Math.floor(random)
+            // 获取一个指定的地鼠，
+            var mouse = mouses.get(random)
+
+            $(mouse).addClass('mouseUp').removeClass('mouseDown')
+
+            setTimeout(function(){
+                $(mouse).addClass('mouseDown').removeClass('mouseUp')
+            },2500)
+        }
+        function play(){
+            setTimeout(showMouse,500)
+            setTimeout(showMouse,1000)
+            setTimeout(showMouse,1500)
+            setTimeout(showMouse,2000)
+            setTimeout(showMouse,2500)
+            setTimeout(showMouse,3000)
+        }
+        setInterval(play , 3000)
+
+        $('body').mousedown(function(){
+            $('body').css('cursor','url(image/cursor-down.png) , auto')
+        }).mouseup(function(){
+            $('body').css('cursor','url(image/cursor.png),auto')
+        })
+        $(mouses).click(function(){
+            // $(this)指的是当前被点击的对象
+            $(this).addClass('mouseDown').removeClass('mouseUp')
+
+            fenshu += 10;
+
+            $('#defen').text('得分：' + fenshu)
+            // get(0)是固定写法，
+            $('#dazhong').attr('src','audio/dazhong.wav').get(0).play()
+            if (fenshu==500)
+        {
+            alert('哈哈哈哈哈哈哈哈哈哈哈，刺激不？别着急，还没完！点确定')
+            window.open('image/faceu_20180712135131.gif','newwindow')
+        }
+        
+        })
+
+    </script>
+</body>
+</html>
